@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 
 export default defineConfig({
   title: 'SJY Blog',
-  description: 'Personal Wiki & Dev Blog by SJY',
+  description: 'Personal Dev Blog by SJY',
   lang: 'ko-KR',
 
   base: '/',
@@ -16,11 +16,11 @@ export default defineConfig({
 
   head: [
     ['meta', { name: 'author', content: 'SJY' }],
-    ['meta', { name: 'keywords', content: 'programming, wiki, blog, development, typescript, javascript' }],
+    ['meta', { name: 'keywords', content: 'programming, blog, development, typescript, javascript, backend' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:site_name', content: 'SJY Blog' }],
     ['meta', { property: 'og:title', content: 'SJY Blog' }],
-    ['meta', { property: 'og:description', content: 'Personal Wiki & Dev Blog by SJY' }],
+    ['meta', { property: 'og:description', content: 'Personal Dev Blog by SJY' }],
     ['meta', { property: 'og:url', content: 'https://sjy0917032.github.io' }],
     ['meta', { name: 'twitter:card', content: 'summary' }],
     ['meta', { name: 'twitter:title', content: 'SJY Blog' }],
@@ -33,22 +33,8 @@ export default defineConfig({
 
     nav: [
       { text: 'Home', link: '/' },
-      {
-        text: '글',
-        items: [
-          { text: '실무 이야기', link: '/work/' },
-          { text: '프로젝트', link: '/projects/' },
-        ]
-      },
-      {
-        text: 'Wiki',
-        items: [
-          { text: 'Programming', link: '/programming/' },
-          { text: 'Knowledge', link: '/knowledge/' },
-        ]
-      },
-      { text: 'Diary', link: '/diary/diary' },
-      { text: 'Plans', link: '/plans/' },
+      { text: '실무 이야기', link: '/work/' },
+      { text: '프로젝트', link: '/projects/' },
     ],
 
     sidebar: {
@@ -119,40 +105,6 @@ export default defineConfig({
           ]
         },
       ],
-      '/programming/': [
-        {
-          text: 'Programming',
-          collapsed: false,
-          items: [
-            { text: 'Overview', link: '/programming/' },
-          ]
-        },
-        {
-          text: 'Languages',
-          collapsed: false,
-          items: [
-            { text: 'JavaScript / TypeScript', link: '/programming/#javascript-typescript' },
-          ]
-        }
-      ],
-      '/knowledge/': [
-        {
-          text: 'Knowledge Base',
-          collapsed: false,
-          items: [
-            { text: 'Overview', link: '/knowledge/' },
-          ]
-        }
-      ],
-      '/diary/': [
-        {
-          text: 'Diary',
-          collapsed: false,
-          items: [
-            { text: 'Index', link: '/diary/diary' },
-          ]
-        }
-      ]
     },
 
     search: {

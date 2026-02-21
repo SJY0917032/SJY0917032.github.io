@@ -1,6 +1,6 @@
 /* ============================================
    SJY Blog - Custom Theme
-   Clean dark wiki aesthetic with D2Coding font
+   Clean dark blog aesthetic with D2Coding font
    ============================================ */
 
 @import url('https://cdn.jsdelivr.net/gh/wan2land/d2coding/d2coding-subset.css');
@@ -14,8 +14,8 @@
   --vp-c-brand-soft: rgba(123, 159, 224, 0.14);
 
   /* Layout */
-  --wiki-width: 780px;
-  --wiki-padding: 24px;
+  --blog-width: 780px;
+  --blog-padding: 24px;
 
   /* Typography */
   --vp-font-family-base: 'D2Coding', 'D2 coding', 'Fira Code', monospace;
@@ -73,17 +73,50 @@ html, body {
 
 /* ---------- Content Width Control ---------- */
 .VPDoc > .container {
-  max-width: var(--wiki-width);
+  max-width: var(--blog-width);
   margin: 0 auto;
 }
 
 .VPDoc .content {
   max-width: 100%;
-  padding: 0 var(--wiki-padding);
+  padding: 0 var(--blog-padding);
 }
 
 .VPDoc .content-container {
   max-width: 100%;
+}
+
+/* ---------- Collapsible Left Sidebar ---------- */
+@media (min-width: 960px) {
+  .VPSidebar {
+    position: fixed;
+    left: 0;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 30;
+    box-shadow: none;
+  }
+
+  .VPSidebar.open,
+  .VPSidebar:target {
+    transform: translateX(0);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .VPContent.has-sidebar {
+    padding-left: 0;
+    margin: 0 auto;
+  }
+
+  .VPDoc.has-sidebar .container {
+    padding-left: 0;
+    max-width: var(--blog-width);
+    margin: 0 auto;
+  }
+
+  .VPDoc.has-aside .content-container {
+    max-width: 100%;
+  }
 }
 
 /* ---------- Typography ---------- */
@@ -192,7 +225,7 @@ html, body {
   border-top: 1px solid var(--vp-c-divider);
 }
 
-/* ---------- Sidebar Styling ---------- */
+/* ---------- Left Sidebar Styling ---------- */
 .VPSidebar {
   border-right: 1px solid var(--vp-c-divider);
 }
@@ -208,7 +241,7 @@ html, body {
 
 /* ---------- Home Page Hero ---------- */
 .VPHero .main {
-  max-width: var(--wiki-width);
+  max-width: var(--blog-width);
 }
 
 .VPHero .name {
@@ -227,7 +260,7 @@ html, body {
 
 /* ---------- Feature Cards ---------- */
 .VPFeatures .container {
-  max-width: var(--wiki-width);
+  max-width: var(--blog-width);
   margin: 0 auto;
 }
 
@@ -242,15 +275,15 @@ html, body {
   box-shadow: 0 2px 12px rgba(123, 159, 224, 0.08);
 }
 
-/* ---------- Custom: Wiki Card Grid ---------- */
-.wiki-cards {
+/* ---------- Custom: Blog Card Grid ---------- */
+.blog-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 16px;
   margin: 24px 0;
 }
 
-.wiki-card {
+.blog-card {
   padding: 20px;
   border: 1px solid var(--vp-c-divider);
   border-radius: 12px;
@@ -258,18 +291,18 @@ html, body {
   transition: all 0.25s;
 }
 
-.wiki-card:hover {
+.blog-card:hover {
   border-color: var(--vp-c-brand-1);
   transform: translateY(-2px);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
-.wiki-card h3 {
+.blog-card h3 {
   margin: 0 0 8px 0;
   font-size: 1em;
 }
 
-.wiki-card p {
+.blog-card p {
   margin: 0;
   font-size: 0.9em;
   color: var(--vp-c-text-3);
@@ -347,7 +380,7 @@ html, body {
 /* ---------- Responsive ---------- */
 @media (max-width: 768px) {
   :root {
-    --wiki-padding: 16px;
+    --blog-padding: 16px;
   }
 
   body {
@@ -362,7 +395,7 @@ html, body {
     font-size: 1.4em;
   }
 
-  .wiki-cards {
+  .blog-cards {
     grid-template-columns: 1fr;
   }
 }

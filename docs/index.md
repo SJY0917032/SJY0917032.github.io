@@ -3,33 +3,25 @@ layout: home
 
 hero:
   name: "SJY Blog"
-  text: "Personal Dev Wiki & Blog"
-  tagline: "프로그래밍, 프로젝트, 그리고 매일의 기록"
+  text: "Personal Dev Blog"
+  tagline: "실무 경험과 사이드 프로젝트 기록"
   actions:
     - theme: brand
-      text: Wiki 둘러보기
-      link: /wiki-index
+      text: 실무 이야기
+      link: /work/
     - theme: alt
       text: GitHub
       link: https://github.com/SJY0917032
 
 features:
-  - icon: 💻
-    title: Programming
-    details: JavaScript, TypeScript 등 프로그래밍 언어와 프레임워크 학습 노트
-    link: /programming/
-  - icon: 📚
-    title: Knowledge
-    details: 개발 관련 지식과 개념 정리
-    link: /knowledge/
+  - icon: 🏢
+    title: 실무 이야기
+    details: API 게이트웨이, 분산 트랜잭션, 인프라 비용 절감 등 실무에서 풀었던 문제들
+    link: /work/
   - icon: 🚀
-    title: Projects
-    details: 진행 중인 프로젝트 문서화 및 관리
+    title: 프로젝트
+    details: 분산 스케줄러, 실시간 채팅, 검색 파이프라인 등 사이드 프로젝트
     link: /projects/
-  - icon: 📝
-    title: Diary
-    details: 일일 개발 일지와 학습 기록
-    link: /diary/diary
 ---
 
 <div class="vp-doc" style="max-width: 780px; margin: 0 auto; padding: 0 24px;">
