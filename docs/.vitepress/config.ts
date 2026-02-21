@@ -7,7 +7,7 @@ export default defineConfig({
 
   base: '/',
   cleanUrls: true,
-  lastUpdated: true,
+  lastUpdated: false,
   ignoreDeadLinks: true,
 
   sitemap: {
@@ -33,75 +33,65 @@ export default defineConfig({
 
     nav: [
       { text: 'Home', link: '/' },
-      { text: '실무 이야기', link: '/work/' },
-      { text: '프로젝트', link: '/projects/' },
+      { text: 'Posts', link: '/posts/' },
     ],
 
     sidebar: {
-      '/work/': [
+      '/posts/': [
         {
-          text: '실무 이야기',
+          text: 'Posts',
           collapsed: false,
           items: [
-            { text: '목록', link: '/work/' },
+            { text: '목록', link: '/posts/' },
           ]
         },
         {
           text: '아키텍처 & 설계',
           collapsed: false,
           items: [
-            { text: '공급사 6곳의 API를 하나로', link: '/work/api-gateway-layer' },
-            { text: '예약 성공, 결제 실패 — 분산 트랜잭션 없이 일관성 확보하기', link: '/work/distributed-transaction' },
-            { text: '인천공항이 네 가지 이름으로 저장된 이유 — 공급사 데이터 정규화', link: '/work/data-normalization' },
+            { text: '공급사 6곳의 API를 하나로', link: '/posts/api-gateway-layer' },
+            { text: '예약 성공, 결제 실패 — 분산 트랜잭션 없이 일관성 확보하기', link: '/posts/distributed-transaction' },
+            { text: '인천공항이 네 가지 이름으로 저장된 이유 — 공급사 데이터 정규화', link: '/posts/data-normalization' },
           ]
         },
         {
           text: '인프라 & 비용',
           collapsed: false,
           items: [
-            { text: 'AWS 인프라 비용 92% 절감 — DocumentDB TTL 아카이빙과 RabbitMQ 전환', link: '/work/infra-cost-reduction' },
+            { text: 'AWS 인프라 비용 92% 절감', link: '/posts/infra-cost-reduction' },
           ]
         },
         {
           text: '자동화 & 운영',
           collapsed: false,
           items: [
-            { text: '인수증 발송 파이프라인 재설계 — GAS에서 NestJS + SQS + Lambda로', link: '/work/invoice-pipeline' },
-            { text: '레거시 TMS 연동 개편 — 인터페이스 추상화와 재시도 설계', link: '/work/legacy-tms-refactor' },
-            { text: '수기 결제 자동화 — 토스페이먼츠 정기결제와 PG 추상화 설계', link: '/work/payment-automation' },
-            { text: 'Google Sheets에서 NestJS 어드민으로 — 팀 계층 RBAC 설계', link: '/work/admin-rbac' },
-          ]
-        },
-      ],
-      '/projects/': [
-        {
-          text: '프로젝트',
-          collapsed: false,
-          items: [
-            { text: '목록', link: '/projects/' },
+            { text: '인수증 발송 파이프라인 재설계', link: '/posts/invoice-pipeline' },
+            { text: '레거시 TMS 연동 개편', link: '/posts/legacy-tms-refactor' },
+            { text: '수기 결제 자동화', link: '/posts/payment-automation' },
+            { text: 'Google Sheets에서 NestJS 어드민으로', link: '/posts/admin-rbac' },
           ]
         },
         {
           text: '분산 시스템',
           collapsed: false,
           items: [
-            { text: 'Redis 리더 선출로 분산 크론 스케줄러 만들기', link: '/projects/distributed-scheduler' },
-            { text: '수평 확장 가능한 실시간 채팅·현재상태 시스템', link: '/projects/realtime-chat' },
+            { text: 'Redis 분산 크론 스케줄러', link: '/posts/distributed-scheduler' },
+            { text: '실시간 채팅·현재상태 시스템', link: '/posts/realtime-chat' },
           ]
         },
         {
           text: '비동기 처리',
           collapsed: false,
           items: [
-            { text: '주문과 결제를 비동기로 분리하면 생기는 일', link: '/projects/order-payment' },
-            { text: '알림 채널 3개를 독립 큐로 분리한 이유', link: '/projects/notification-dispatcher' },
+            { text: '주문과 결제를 비동기로 분리하면', link: '/posts/order-payment' },
+            { text: '알림 채널 3개를 독립 큐로', link: '/posts/notification-dispatcher' },
           ]
         },
         {
           text: '검색 & 데이터',
           collapsed: false,
           items: [
-            { text: 'SQLite FTS5로 검색 파이프라인 만들기', link: '/projects/search-pipeline' },
+            { text: 'SQLite FTS5 검색 파이프라인', link: '/posts/search-pipeline' },
           ]
         },
       ],
@@ -133,13 +123,6 @@ export default defineConfig({
       label: '목차'
     },
 
-    lastUpdated: {
-      text: '마지막 수정',
-      formatOptions: {
-        dateStyle: 'medium',
-        timeStyle: 'short'
-      }
-    },
 
     docFooter: {
       prev: '이전 글',
