@@ -12,7 +12,6 @@ Slack 스타일의 "Alice is typing..." 인디케이터와 실시간 온라인/�
 
 단일 서버라면 쉽다. 문제는 서버가 여러 대일 때다. 클라이언트 A가 서버 1에 연결돼 있고, 클라이언트 B가 서버 2에 연결돼 있으면 — A가 보낸 메시지를 B가 받으려면 서버 1과 서버 2가 통신해야 한다.
 
-**스택**: Node.js 20 · TypeScript · Socket.IO 4 · Redis 7 · Express
 
 ---
 
@@ -76,7 +75,7 @@ TTL: 60초 (서버 하트비트로 갱신)
 
 ## 보안 및 운영
 
-- **멀티스테이지 Docker 빌드**: builder가 전체 의존성 설치 → runtime이 `dist/`와 프로덕션 의존성만 복사 → 최종 이미지 136MB (단순 빌드 ~400MB 대비)
+- **멀티스테이지 Docker 빌드**: builder가 전체 의존성 설치 → runtime이 `dist/`와 프로덕션 의존성만 복사 → 이미지 크기 대폭 축소
 - **컨테이너 내 non-root 사용자**: `adduser -S appuser`
 - **`npm ci --ignore-scripts`**: CI에서 악성 라이프사이클 스크립트 방지
 - 프로덕션 의존성 취약점 0개

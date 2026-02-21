@@ -124,7 +124,7 @@ BullMQ는 내부적으로 Redis Streams를 사용한다. 워커는 상태 없는
 ## 수치
 
 - **코드베이스**: TypeScript ~700줄 (src/), 테스트 ~200줄
-- **Docker 이미지**: ~140MB (Node 20 Alpine, 프로덕션 의존성만, non-root)
+- **Docker 이미지**: Alpine 기반, 프로덕션 의존성만 포함, non-root 실행
 - **테스트**: 단위 테스트 4개 (스케줄러 + 레포지토리 순수 로직)
 - **의존성**: Fastify, BullMQ, ioredis, better-sqlite3, cron-parser, nanoid, zod, pino
 

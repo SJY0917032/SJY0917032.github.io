@@ -126,7 +126,7 @@ await Promise.all(promises);  // 3개 큐에 동시 enqueue
 
 ## 성능 벤치마크
 
-**환경**: macOS, Node.js 20, Redis 7 (로컬)
+**환경**: 로컬 (macOS, Node.js, Redis)
 
 ```
 Requests:    200
