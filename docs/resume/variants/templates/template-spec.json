@@ -1,0 +1,72 @@
+[
+  {
+    "id": "01-minimal",
+    "name": "미니멀형",
+    "description": "간결한 한눈형 이력서",
+    "keywords": [
+      "핵심성과",
+      "운영안정성",
+      "자동화"
+    ],
+    "lengthRange": [
+      1800,
+      9000
+    ]
+  },
+  {
+    "id": "02-impact",
+    "name": "성과중심형",
+    "description": "문제-해결-성과 서술 중심",
+    "keywords": [
+      "문제해결",
+      "정량성과",
+      "재현가능성"
+    ],
+    "lengthRange": [
+      2500,
+      14000
+    ]
+  },
+  {
+    "id": "03-tech",
+    "name": "기술특화형",
+    "description": "아키텍처/신뢰성 전략 중심",
+    "keywords": [
+      "아키텍처",
+      "신뢰성",
+      "확장성"
+    ],
+    "lengthRange": [
+      1800,
+      13000
+    ]
+  },
+  {
+    "id": "04-portfolio",
+    "name": "프로젝트포트폴리오형",
+    "description": "프로젝트 사례 중심",
+    "keywords": [
+      "도메인경험",
+      "프로젝트",
+      "임팩트"
+    ],
+    "lengthRange": [
+      2400,
+      15000
+    ]
+  },
+  {
+    "id": "05-traditional",
+    "name": "전통형",
+    "description": "국내 기업 제출용 전통 서식",
+    "keywords": [
+      "경력기술서",
+      "책임범위",
+      "성과"
+    ],
+    "lengthRange": [
+      3000,
+      16000
+    ]
+  }
+]

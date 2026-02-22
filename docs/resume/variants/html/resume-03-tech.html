@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="ko" class="theme-tech">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>기술특화형 이력서</title>
+  <style>@page {
+  size: A4;
+  margin: 12mm;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 10mm;
+  color: #111827;
+  line-height: 1.5;
+  background: #f5f7fa;
+  font-family: "Apple SD Gothic Neo", "Noto Sans CJK KR", "Malgun Gothic", sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+}
+
+.resume {
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  padding: 9mm 10mm;
+}
+
+.meta {
+  margin-bottom: 8px;
+  font-size: 11px;
+  color: #4b5563;
+  letter-spacing: 0.2px;
+}
+
+h1 {
+  margin: 0 0 10px;
+  font-size: 26px;
+  line-height: 1.25;
+}
+
+h2 {
+  margin: 16px 0 8px;
+  font-size: 16px;
+}
+
+h3 {
+  margin: 12px 0 6px;
+  font-size: 14px;
+}
+
+h4 {
+  margin: 10px 0 6px;
+  font-size: 12px;
+}
+
+p {
+  margin: 5px 0;
+  font-size: 12px;
+}
+
+ul {
+  margin: 4px 0 8px 0;
+  padding-left: 18px;
+}
+
+li {
+  margin: 3px 0;
+  font-size: 12px;
+}
+
+code {
+  font-size: 11px;
+  padding: 1px 5px;
+  border-radius: 5px;
+  background: #eef2ff;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #e5e7eb;
+  margin: 10px 0;
+}
+
+.theme-minimal .resume {
+  border-top: 8px solid #0f172a;
+}
+
+.theme-minimal h2 {
+  border-bottom: 1px solid #cbd5e1;
+  padding-bottom: 2px;
+}
+
+.theme-impact body {
+  background: #f1fdf4;
+}
+
+.theme-impact .resume {
+  border-left: 8px solid #166534;
+}
+
+.theme-impact h2 {
+  background: #166534;
+  color: #ffffff;
+  padding: 4px 8px;
+  margin-top: 14px;
+}
+
+.theme-tech body {
+  background: #eef2ff;
+}
+
+.theme-tech .resume {
+  border: 1px solid #3730a3;
+  background: #fdfdff;
+}
+
+.theme-tech h1,
+.theme-tech h2 {
+  color: #312e81;
+}
+
+.theme-tech code {
+  background: #e0e7ff;
+}
+
+.theme-portfolio body {
+  background: #fff5eb;
+}
+
+.theme-portfolio .resume {
+  border: 2px solid #9a3412;
+}
+
+.theme-portfolio h3 {
+  background: #ffedd5;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.theme-traditional .resume {
+  border: 1px solid #6b7280;
+}
+
+.theme-traditional h1 {
+  text-align: center;
+}
+
+.theme-traditional h2 {
+  border-bottom: 2px double #6b7280;
+  padding-bottom: 2px;
+}</style>
+</head>
+<body>
+  <main class="resume">
+    <div class="meta">Generated at 2026-02-22T11:39:06.362Z | Variant: 기술특화형</div>
+    <h1>신주용 | 기술 특화 백엔드 이력서</h1>
+<h2>연락처</h2>
+<ul>
+<li>Contact: 010-8392-1580</li>
+<li>Email: sea71511@gmail.com</li>
+<li>GitHub: https://github.com/SJY0917032</li>
+<li>Blog: https://sjy0917032.github.io/</li>
+</ul>
+<h2>기술자 소개</h2>
+<p>OTA, O2O 도메인에서 4년차 백엔드 엔지니어입니다. 71개국 / 400만 대 규모 해외 렌터카 인벤토리 시스템을 설계·운영했고, Google Sheets로 돌아가던 스타트업 업무를 NestJS 기반으로 전환하는 작업을 주도하고 있습니다. 비즈니스 요구를 기술 구조로 옮기고, 운영에서 측정 가능한 성과를 내는 걸 중요하게 생각합니다.</p>
+<h2>핵심 키워드</h2>
+<p>아키텍처 · 신뢰성 · 확장성</p>
+<h2>핵심 기술 스택 맵</h2>
+<ul>
+<li>Backend: Node.js, NestJS, TypeScript</li>
+<li>Database: MySQL, MongoDB, Redis, PostgreSQL</li>
+<li>Infrastructure: AWS, GCP</li>
+</ul>
+<h2>아키텍처/설계 원칙</h2>
+<ul>
+<li>도메인 로직과 인프라를 분리하는 DDD/헥사고날 성향의 구조를 선호합니다.</li>
+<li>Adapter/Strategy 패턴으로 외부 연동 포인트를 교체 가능하게 설계합니다.</li>
+<li>trackingId/결제ID 기준 멱등성 처리로 중복 실행 리스크를 억제합니다.</li>
+<li>재시도(지수 백오프), DLQ, Audit 로그를 조합해 운영 복구 시간을 단축합니다.</li>
+<li>정산/동기화 파이프라인은 스케줄러와 검증 로직으로 누락을 사전에 탐지합니다.</li>
+</ul>
+<h2>트랜잭션/신뢰성 전략</h2>
+<ul>
+<li>멱등키, Retry(지수 백오프), DLQ, Slack/Webhook 알림으로 실패 전파를 차단합니다.</li>
+<li>동기 파이프라인을 메시지 기반 비동기 처리로 전환하여 장애 범위를 축소합니다.</li>
+<li>Audit 로그와 정산 검증 스케줄러로 장애 원인과 데이터 불일치를 빠르게 추적합니다.</li>
+</ul>
+<h2>기술 프로젝트 트랙</h2>
+<h3>인수증 발행 시스템 이관</h3>
+<ul>
+<li>도메인: 뽀득</li>
+<li>아키텍처 포인트: 업체별 SQS 메시지 독립 처리로 전환. 한 업체 실패가 다른 업체로 전파되지 않음</li>
+<li>운영 포인트: 발송 실패 월 2~3회 → 0건 / 수기 작업 완전 제거</li>
+<li>기술 스택: NestJS, SQS, Lambda(Python), NHN Cloud SMS</li>
+</ul>
+<h3>TMS 레거시 개편</h3>
+<ul>
+<li>도메인: 뽀득</li>
+<li>아키텍처 포인트: 인터페이스 추상화 + MockAdapter 분리로 로컬 테스트 환경 확보</li>
+<li>운영 포인트: 수기 대응 월 3~5회 → 0회 / 장애 인지 시점: 다음 날 → 즉시</li>
+<li>기술 스택: NestJS, MySQL, Slack Webhook</li>
+</ul>
+<h3>결제 자동화 및 PG 추상화</h3>
+<ul>
+<li>도메인: 뽀득</li>
+<li>아키텍처 포인트: 토스페이먼츠 빌링키 기반 정기결제로 자동화</li>
+<li>운영 포인트: 월 3회 수기 작업 제거 / PG 추가 시 Adapter 1개 구현으로 완료</li>
+<li>기술 스택: NestJS, 토스페이먼츠, 이니시스</li>
+</ul>
+<h3>NestJS 어드민 시스템화</h3>
+<ul>
+<li>도메인: 뽀득</li>
+<li>아키텍처 포인트: 팀·파트·인원 3계층 RBAC 설계. 도메인별로 NONE/READ/WRITE/MANAGE 4단계 권한 부여</li>
+<li>운영 포인트: 운영 안정성 및 처리 성능 개선</li>
+<li>기술 스택: NestJS, TypeORM, MySQL, RBAC</li>
+</ul>
+<h3>AWS 인프라 개편</h3>
+<ul>
+<li>도메인: 뽀득</li>
+<li>아키텍처 포인트: 비즈니스 로직과 외부 연동 계층 분리</li>
+<li>운영 포인트: 연간 약 400만 원 인프라 비용 절감</li>
+<li>기술 스택: AWS EC2, RDS</li>
+</ul>
+<h3>기타</h3>
+<ul>
+<li>도메인: 뽀득</li>
+<li>아키텍처 포인트: <strong>업체 데이터 동기화</strong>: Google Sheets → DB 주간 수기 동기화를 NestJS Cron + Sheets API로 자동화</li>
+<li>운영 포인트: 운영 안정성 및 처리 성능 개선</li>
+<li>기술 스택: NestJS, TypeScript, MySQL</li>
+</ul>
+<h3>해외 공급사 API 통합 — GOTAR</h3>
+<ul>
+<li>도메인: 팀오투 (카모아)</li>
+<li>아키텍처 포인트: 도메인별(차종·차량·업체·지점·주문·예약) 공통 인터페이스(GOTAR 스키마)를 정의하고 npm private 패키지로 배포. 래핑 서버와 코어 서버가 같은 타입을 참조해서 타입 불일치를 원천 차단</li>
+<li>운영 포인트: 7개국 → 71개국 / 400만 대</li>
+<li>기술 스택: NestJS, TypeScript, ECS</li>
+</ul>
+<h3>DocumentDB 스토리지 비용 91% 절감</h3>
+<ul>
+<li>도메인: 팀오투 (카모아)</li>
+<li>아키텍처 포인트: 사업부에 보존 기간 확인 후 TTL Index로 1개월 초과 데이터 자동 만료</li>
+<li>운영 포인트: 월 140만 → 12만 원 (91% 절감) / 데이터 유실 없음</li>
+<li>기술 스택: AWS DocumentDB, TTL Index</li>
+</ul>
+<h2>오픈소스</h2>
+<ul>
+<li>Claw-Empire — AI 에이전트 오케스트레이션 플랫폼: #23 미팅 프롬프트 토큰 절감 / #26 안전 자동 업데이트 시스템 (Merged)</li>
+</ul>
+<h2>학력</h2>
+<ul>
+<li>코드캠프 Node.js 백엔드 부트캠프 | 2022.03 – 2022.07</li>
+</ul>
+    <div id="ready" style="display:none;"></div>
+  </main>
+</body>
+</html>
