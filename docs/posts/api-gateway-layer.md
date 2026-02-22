@@ -18,7 +18,7 @@ tags: [NestJS, TypeScript, ECS, AWS, Architecture]
 
 ## 공급사마다 다른 세계
 
-공급사 A는 REST + JSON, 공급사 B는 SOAP + XML, 공급사 C는 GraphQL. 차종 코드도 다르고, 예약 상태 코드도 다르고, 에러 코드도 다르다.
+공급사 A는 REST + JSON, 공급사 B는 SOAP + XML, 차종 코드도 다르고, 예약 상태 코드도 다르고, 에러 코드도 다르다.
 
 ```
 [공급사별 예약 생성 API 비교]
@@ -99,7 +99,7 @@ flowchart TB
 
     SERVER_A -->|변환| SUPPLIER_A[공급사 A API\nREST+JSON]
     SERVER_B -->|변환| SUPPLIER_B[공급사 B API\nSOAP+XML]
-    SERVER_C -->|변환| SUPPLIER_C[공급사 C API\nGraphQL]
+    SERVER_C -->|변환| SUPPLIER_C[공급사 C API\nREST]
 ```
 
 각 공급사 서버는 독립 ECS Service로 배포된다. 공급사 A 코드를 수정해도 B, C 서버는 재배포되지 않는다.

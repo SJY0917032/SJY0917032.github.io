@@ -34,6 +34,7 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Posts', link: '/posts/' },
+      { text: 'Resume', link: '/resume/' },
     ],
 
     sidebar: {
