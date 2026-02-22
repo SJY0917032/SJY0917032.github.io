@@ -58,7 +58,7 @@ export default defineConfig({
           text: '인프라 & 비용',
           collapsed: false,
           items: [
-            { text: 'AWS 인프라 비용 92% 절감', link: '/posts/infra-cost-reduction' },
+            { text: 'DocumentDB 스토리지 비용 91% 절감', link: '/posts/infra-cost-reduction' },
           ]
         },
         {
@@ -92,6 +92,13 @@ export default defineConfig({
           collapsed: false,
           items: [
             { text: 'SQLite FTS5 검색 파이프라인', link: '/posts/search-pipeline' },
+          ]
+        },
+        {
+          text: '오픈소스 기여',
+          collapsed: false,
+          items: [
+            { text: 'AI 에이전트 오케스트레이터에 기여한 이야기', link: '/posts/oss-claw-empire' },
           ]
         },
       ],

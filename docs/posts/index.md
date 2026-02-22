@@ -13,7 +13,7 @@ description: 실무에서 마주친 문제들과 직접 설계한 시스템 아�
 
 ## 인프라 & 비용
 
-- [AWS 인프라 비용 92% 절감 — DocumentDB TTL 아카이빙과 RabbitMQ 전환](./infra-cost-reduction)
+- [DocumentDB 스토리지 비용 91% 절감 — TTL 인덱스와 S3 Glacier 아카이빙](./infra-cost-reduction)
 
 ## 자동화 & 운영
 
@@ -35,3 +35,7 @@ description: 실무에서 마주친 문제들과 직접 설계한 시스템 아�
 ## 검색 & 데이터
 
 - [SQLite FTS5로 검색 파이프라인 만들기](./search-pipeline)
+
+## 오픈소스 기여
+
+- [AI 에이전트 오케스트레이터에 기여한 이야기 — Claw-Empire 토큰 절감 & 자동 업데이트](./oss-claw-empire)

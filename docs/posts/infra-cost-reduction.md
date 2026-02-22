@@ -1,16 +1,16 @@
 ---
-title: AWS 인프라 비용 92% 절감 — DocumentDB TTL 아카이빙과 RabbitMQ 전환
-description: DocumentDB TTL 아카이빙과 AWS MQ → EC2 RabbitMQ 전환으로 월 인프라 비용을 대폭 줄인 이야기
-tags: [AWS, DocumentDB, RabbitMQ, S3, 비용최적화]
+title: DocumentDB 스토리지 비용 91% 절감 — TTL 인덱스와 S3 Glacier 아카이빙
+description: 무제한 적재되던 DocumentDB 로그에 TTL + S3 아카이빙을 적용해 월 비용을 91% 줄인 이야기
+tags: [AWS, DocumentDB, S3, 비용최적화]
 ---
 
-# AWS 인프라 비용 92% 절감 — DocumentDB TTL 아카이빙과 RabbitMQ 전환
+# DocumentDB 스토리지 비용 91% 절감 — TTL 인덱스와 S3 Glacier 아카이빙
 
 ---
 
 어느 달 AWS 청구서를 열었다가 손이 멈췄다. 서비스가 성장하고 있으니 비용이 늘어나는 건 당연하다고 생각했는데, 항목을 하나씩 뜯어보니 그게 아니었다.
 
-DocumentDB 스토리지가 계속 불어나고 있었다. 조회는 최근 1개월치만 하는데, 데이터는 서비스 시작부터 전부 쌓여 있었다. AWS MQ도 실제 트래픽 대비 과잉 스펙으로 돌아가고 있었다. 매니지드 서비스의 편의 비용을 내고 있었던 거다.
+DocumentDB 스토리지가 계속 불어나고 있었다. 조회는 최근 1개월치만 하는데, 데이터는 서비스 시작부터 전부 쌓여 있었다.
 
 "이거 줄일 수 있겠는데."
 
@@ -94,143 +94,15 @@ S3 Glacier Instant Retrieval을 고른 이유는 표준 S3보다 80% 저렴하�
 | 항목 | 이전 | 이후 |
 |---|---|---|
 | DocumentDB 스토리지 | 계속 증가 | **30일치만 유지** |
-| 월 비용 | 높음 | **대폭 절감** |
+| 월 비용 | 140만 원 | **12만 원 (91% 절감)** |
 | 데이터 유실 리스크 | 없음 | **없음 (S3 아카이빙)** |
 
 ---
 
-## AWS MQ를 EC2로 옮기기로 했다
+## 사업부 합의가 먼저였다
 
-AWS MQ(Amazon MQ)는 RabbitMQ를 매니지드로 제공하는 서비스다. 편리하지만 비싸다. 실제 트래픽 대비 과잉 스펙의 인스턴스를 여러 대 돌리고 있었고, 매달 상당한 비용이 나갔다.
+기술적으로는 TTL 인덱스 하나 거는 간단한 작업이었다. 근데 바로 실행하지 않았다. 과거 데이터를 지우는 건 사업부 확인이 필요했다.
 
-RabbitMQ 자체는 오픈소스다. EC2에 직접 설치하면 인스턴스 비용만 낸다.
+"최근 1개월 데이터만 있으면 되는 거 맞죠?" — 이걸 먼저 물어봤다. 사업부에서 예전 데이터를 찾는 경우가 있을 수 있으니까. 확인받고, 과거 데이터는 S3에 백업해서 필요하면 꺼낼 수 있는 구조로 가기로 했다.
 
-근데 이 결정이 쉽지 않았다. 매니지드 서비스를 EC2로 전환하면 가용성 관리를 직접 해야 한다. AWS MQ는 AWS가 장애를 처리하지만, EC2 RabbitMQ는 우리가 처리해야 한다.
-
-| 항목 | AWS MQ | EC2 RabbitMQ |
-|---|---|---|
-| 월 비용 | 높음 | 대폭 절감 |
-| 관리 부담 | AWS 담당 | 직접 관리 |
-| 업그레이드 | 자동 | 수동 |
-| 모니터링 | CloudWatch 기본 제공 | 직접 구성 |
-| 장애 복구 | AWS SLA | 직접 설계 |
-
-전환을 결정한 근거는 세 가지였다. 첫째, MQ는 예약 이벤트 처리용으로 트래픽이 높지 않았다. 돌리고 있던 인스턴스는 과잉 스펙이었다. 둘째, 팀에 RabbitMQ 운영 경험이 있었다. 셋째, 비용 절감 폭 vs 운영 부담 증가 — 충분히 감수할 수 있는 트레이드오프였다.
-
-단, 전환하면서 가용성을 어떻게 확보할지 먼저 설계했다.
-
-```mermaid
-flowchart TB
-    PRODUCER[메시지 생산자\nNestJS API] --> LB[HAProxy\n로드밸런서]
-
-    LB --> PRIMARY[RabbitMQ Primary\nEC2]
-    LB --> STANDBY[RabbitMQ Standby\nEC2]
-
-    PRIMARY <-->|미러링| STANDBY
-
-    PRIMARY --> CONSUMER[메시지 소비자\nNestJS Worker]
-    STANDBY --> CONSUMER
-
-    PRIMARY -->|장애| FAILOVER[자동 페일오버\nStandby → Primary]
-
-    style FAILOVER fill:#ffd43b
-```
-
-Active-Standby 구성으로 Primary가 다운되면 Standby가 자동으로 역할을 이어받는다. 큐 미러링(Queue Mirroring) 정책으로 두 노드에 메시지를 복제해둔다.
-
-```bash
-# RabbitMQ 클러스터 구성 (standby 노드에서)
-rabbitmqctl stop_app
-rabbitmqctl join_cluster rabbit@primary-node
-rabbitmqctl start_app
-
-# 큐 미러링 정책 설정
-rabbitmqctl set_policy ha-all ".*" \
-  '{"ha-mode":"all","ha-sync-mode":"automatic"}' \
-  --priority 0 \
-  --apply-to queues
-```
-
----
-
-## 전환하면서 메시지 유실 사고가 났다
-
-AWS MQ에서 EC2로 옮기면서 한 가지 문제가 터졌다. 자동 ack(Auto-Acknowledgement) 설정이 켜져 있던 컨슈머가 메시지를 받자마자 ack를 보내고, 처리 중 실패하면 메시지가 그냥 사라졌다.
-
-```typescript
-// 문제가 있던 코드 (자동 ack)
-channel.consume(queue, async (msg) => {
-  channel.ack(msg);          // 수신 즉시 ack → 처리 실패해도 메시지 사라짐
-  await processMessage(msg); // 여기서 실패하면 메시지 유실
-});
-
-// 수정된 코드 (수동 ack)
-channel.consume(queue, async (msg) => {
-  try {
-    await processMessage(msg);
-    channel.ack(msg);  // 처리 성공 후 ack
-  } catch (error) {
-    const isRetryable = this.isRetryableError(error);
-    channel.nack(msg, false, isRetryable); // 재시도 가능 여부에 따라 분기
-  }
-}, { noAck: false }); // 수동 ack 모드
-```
-
-3회 재시도 후에도 실패하면 DLQ(Dead Letter Queue, 처리 실패 메시지 보관 큐)로 이동한다. DLQ에 쌓인 메시지는 Slack 알림으로 확인하고 수동 처리한다.
-
-```typescript
-await channel.assertQueue('reservation-events', {
-  durable: true,
-  arguments: {
-    'x-dead-letter-exchange': 'dlx',
-    'x-dead-letter-routing-key': 'reservation-events.dead',
-    'x-message-ttl': 24 * 60 * 60 * 1000,
-    'x-max-retries': 3,
-  },
-});
-```
-
-모니터링도 직접 구성했다. AWS MQ는 CloudWatch 메트릭이 기본 제공되지만, EC2 RabbitMQ는 Management API를 직접 폴링해야 한다.
-
-```typescript
-@Cron('*/5 * * * *') // 5분마다
-async checkRabbitMQHealth(): Promise<void> {
-  const stats = await this.rabbitmqManagementApi.getQueueStats();
-
-  for (const queue of stats.queues) {
-    if (queue.messages_unacknowledged > 100) {
-      await this.slackNotifier.alert({
-        title: 'RabbitMQ Unacked 메시지 급증',
-        message: `큐 ${queue.name}: ${queue.messages_unacknowledged}건 미처리`,
-        severity: 'warning',
-      });
-    }
-
-    if (queue.name.endsWith('.dead') && queue.messages > 0) {
-      await this.slackNotifier.alert({
-        title: 'DLQ 메시지 발생',
-        message: `${queue.name}: ${queue.messages}건`,
-        severity: 'error',
-      });
-    }
-  }
-}
-```
-
----
-
-## 전체 비용 변화
-
-| 항목 | 변화 |
-|---|---|
-| DocumentDB | 전수 보관 → 30일 + S3 아카이빙으로 **스토리지 비용 대폭 절감** |
-| MQ | 매니지드 → EC2 자체 운영으로 **인스턴스 비용 대폭 절감** |
-| **합계** | **월 인프라 비용 90% 이상 절감** |
-
----
-
-## 비용 절감 제안을 할 때 "얼마 줄어든다"만 말하면 안 된다
-
-DocumentDB TTL은 리스크가 거의 없었다. S3에 아카이빙하면 데이터 유실 없이 비용만 줄어든다. 반면 AWS MQ → EC2 전환은 가용성 리스크가 있었다. Active-Standby 구성, 수동 ack, DLQ, 모니터링을 함께 설계한 이유다.
-
-비용 절감 제안을 팀에 가져갈 때 "이만큼 줄어든다"만 말하면 설득력이 없다. "어떤 리스크가 있고, 어떻게 보완할 것인가"를 함께 제시해야 팀이 신뢰하고 진행할 수 있다. 이번 작업에서 가장 중요하게 생각한 건 그거였다 — 비용을 줄이되, 안전하게.
+돌이켜보면 이 작업에서 제일 오래 걸린 건 코드가 아니라 합의였다. TTL 인덱스 설정하고 아카이빙 스크립트 만드는 건 하루면 됐는데, "정말 지워도 되느냐"를 확인하는 데 더 오래 걸렸다. 근데 그게 맞다고 생각한다. 데이터를 지우는 결정은 기술적 판단만으로 할 수 있는 게 아니니까.
