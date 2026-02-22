@@ -28,7 +28,7 @@ export default defineConfig({
   ],
 
   themeConfig: {
-    logo: '/favicon.svg',
+    logo: false,
     siteTitle: 'SJY Blog',
 
     nav: [
