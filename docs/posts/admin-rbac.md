@@ -10,9 +10,9 @@ tags: [NestJS, TypeScript, RBAC, 어드민, 권한설계]
 
 처음엔 임시였다. "일단 Google Sheets로 관리하다가 나중에 시스템 만들자"는 계획이었다. 그 "나중에"가 꽤 오래 걸렸다.
 
-업체 관리, 배송 관리, 주문 관리가 모두 스프레드시트로 돌아갔다. 담당자가 직접 셀을 수정하고, 수식으로 집계하고, 공유 링크로 협업했다. 어느 정도까지는 잘 됐다.
+업체 관리, 정산, VOC가 모두 스프레드시트로 돌아갔다. 담당자가 직접 셀을 수정하고, 수식으로 집계하고, 공유 링크로 협업했다. 어느 정도까지는 잘 됐다.
 
-팀이 커지면서 문제가 생겼다. 시트 공유 권한은 "편집자"와 "뷰어" 두 가지뿐이었다. 특정 팀은 주문 데이터만 봐야 하는데 배송 데이터까지 보였다. 특정 파트는 자기 담당 업체만 수정해야 하는데 전체 업체 목록에 접근할 수 있었다. 실수로 다른 팀 데이터를 수정하는 일도 생겼다.
+팀이 커지면서 문제가 생겼다. 시트 공유 권한은 "편집자"와 "뷰어" 두 가지뿐이었다. 특정 팀은 정산 데이터만 봐야 하는데 업체 데이터까지 보였다. 특정 파트는 자기 담당 업체만 수정해야 하는데 전체 업체 목록에 접근할 수 있었다. 실수로 다른 팀 데이터를 수정하는 일도 생겼다.
 
 어드민 시스템을 만들어야 한다는 결론은 자연스럽게 나왔다. 문제는 권한 모델이었다.
 
@@ -65,10 +65,10 @@ flowchart TD
 
 ```typescript
 export enum Domain {
-  VENDOR = 'vendor',       // 업체 관리
-  DELIVERY = 'delivery',   // 배송 관리
-  ORDER = 'order',         // 주문 관리
-  USER = 'user',           // 사용자 관리 (어드민 전용)
+  VENDOR = 'vendor',         // 업체 관리
+  SETTLEMENT = 'settlement', // 정산
+  VOC = 'voc',               // VOC
+  USER = 'user',             // 사용자 관리 (어드민 전용)
 }
 
 export enum PermissionLevel {
@@ -96,7 +96,7 @@ CREATE TABLE users (
 CREATE TABLE permissions (
   id UUID PRIMARY KEY,
   user_id UUID REFERENCES users(id),
-  domain ENUM('vendor', 'delivery', 'order', 'user'),
+  domain ENUM('vendor', 'settlement', 'voc', 'user'),
   level TINYINT,  -- 0: NONE, 1: READ, 2: WRITE, 3: MANAGE
   granted_by UUID REFERENCES users(id),
   created_at TIMESTAMP,
@@ -275,6 +275,6 @@ export class AuditLogInterceptor implements NestInterceptor {
 
 Google Sheets에서 어드민으로의 전환은 단순한 도구 교체가 아니다. 스프레드시트에서는 암묵적으로 운영되던 규칙들이 코드로 명문화된다.
 
-"A팀은 배송 데이터를 볼 수 있다"는 규칙이 시트 공유 설정이 아니라 `permissions` 테이블과 `PermissionGuard`로 표현된다. 규칙이 코드로 들어오면 검증할 수 있고, 변경 이력을 남길 수 있고, 테스트할 수 있다.
+"A팀은 정산 데이터를 볼 수 있다"는 규칙이 시트 공유 설정이 아니라 `permissions` 테이블과 `PermissionGuard`로 표현된다. 규칙이 코드로 들어오면 검증할 수 있고, 변경 이력을 남길 수 있고, 테스트할 수 있다.
 
 조직의 운영 방식이 더 명확해진다.

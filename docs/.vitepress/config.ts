@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitepress'
+import { withMermaid } from 'vitepress-plugin-mermaid'
 
-export default defineConfig({
+export default withMermaid(defineConfig({
   title: 'SJY Blog',
   description: 'Personal Dev Blog by SJY',
   lang: 'ko-KR',
@@ -25,6 +26,7 @@ export default defineConfig({
     ['meta', { name: 'twitter:card', content: 'summary' }],
     ['meta', { name: 'twitter:title', content: 'SJY Blog' }],
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
+    ['script', { defer: '', src: 'https://cloud.umami.is/script.js', 'data-website-id': '1110dc38-fc52-44e9-a143-9582f6b9d1c0' }],
   ],
 
   themeConfig: {
@@ -34,6 +36,7 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Posts', link: '/posts/' },
+      { text: 'Resume', link: '/resume/' },
     ],
 
     sidebar: {
@@ -171,4 +174,4 @@ export default defineConfig({
       ['meta', { property: 'og:url', content: canonicalUrl }]
     )
   }
-})
+}))

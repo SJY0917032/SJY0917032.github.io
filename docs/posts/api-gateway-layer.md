@@ -18,7 +18,7 @@ tags: [NestJS, TypeScript, ECS, AWS, Architecture]
 
 ## 공급사마다 다른 세계
 
-공급사 A는 REST + JSON, 공급사 B는 SOAP + XML, 공급사 C는 GraphQL. 차종 코드도 다르고, 예약 상태 코드도 다르고, 에러 코드도 다르다.
+공급사 A는 REST + JSON, 공급사 B는 SOAP + XML, 차종 코드도 다르고, 예약 상태 코드도 다르고, 에러 코드도 다르다.
 
 ```
 [공급사별 예약 생성 API 비교]
@@ -99,7 +99,7 @@ flowchart TB
 
     SERVER_A -->|변환| SUPPLIER_A[공급사 A API\nREST+JSON]
     SERVER_B -->|변환| SUPPLIER_B[공급사 B API\nSOAP+XML]
-    SERVER_C -->|변환| SUPPLIER_C[공급사 C API\nGraphQL]
+    SERVER_C -->|변환| SUPPLIER_C[공급사 C API\nREST]
 ```
 
 각 공급사 서버는 독립 ECS Service로 배포된다. 공급사 A 코드를 수정해도 B, C 서버는 재배포되지 않는다.
@@ -238,7 +238,7 @@ export class SupplierResponseValidator {
 
 공급사 측 금액과 DB의 금액이 다른 경우가 있었다. 공급사가 환율 변동이나 프로모션 적용으로 금액을 변경하는 경우다. 정산 시점에 발견하면 이미 늦다.
 
-6시간마다 최근 확정 예약을 공급사 API와 대조한다.
+D+1 확정 예약을 6시간 주기로 공급사 API와 대조한다.
 
 ```typescript
 @Cron('0 */6 * * *') // 6시간마다
@@ -276,7 +276,7 @@ async validateReservationAmounts(): Promise<void> {
 | 공급사 추가 비용 | 전체 재구현 | **Adapter 1개 구현** |
 | 공급사 장애 영향 | 전체 서비스 영향 | **해당 공급사만 영향** |
 | 중복 예약 | 발생 가능 | **trackingId 멱등키로 차단** |
-| 정산 불일치 | 정산 시점 발견 | **6시간 주기 사전 탐지** |
+| 정산 불일치 | 정산 시점 발견 | **D+1 사전 탐지 (6시간 주기)** |
 
 ---
 

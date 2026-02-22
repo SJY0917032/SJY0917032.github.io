@@ -7,7 +7,7 @@ description: Claw-Empire 오픈소스에 토큰 절감과 자동 업데이트 �
 
 Claw-Empire라는 오픈소스 프로젝트에 두 건의 PR을 올렸다. Claude Code, Codex CLI, Gemini CLI 같은 AI 코딩 에이전트를 가상 회사처럼 오케스트레이션하는 TypeScript/Node.js 기반 프로젝트인데, 직접 써보면서 불편했던 점을 고쳐서 올린 거라 기록해둔다.
 
-[GitHub: GreenSheep01201/claw-empire](https://github.com/GreenSheep01201/claw-empire) (★106)
+[GitHub: GreenSheep01201/claw-empire](https://github.com/GreenSheep01201/claw-empire) (★110)
 
 ---
 
