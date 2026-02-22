@@ -8,23 +8,74 @@
 
 /* ---------- CSS Variables ---------- */
 :root {
-  /* Brand — electric blue, desaturated enough to stay elegant */
   --vp-c-brand-1: #3b82f6;
   --vp-c-brand-2: #2563eb;
   --vp-c-brand-3: #1d4ed8;
   --vp-c-brand-soft: rgba(59, 130, 246, 0.1);
 
-  /* Layout */
   --blog-width: 780px;
   --blog-padding: 24px;
 
-  /* Typography — Pretendard for body, D2Coding for code */
   --vp-font-family-base: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --vp-font-family-mono: 'D2Coding', 'D2 coding', 'JetBrains Mono', 'Fira Code', monospace;
 
-  /* Transition — premium easing */
   --blog-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --blog-ease-out: cubic-bezier(0.33, 1, 0.68, 1);
   --blog-duration: 0.3s;
+}
+
+/* ---------- Keyframes ---------- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* ---------- Dark Theme · Zinc Neutral ---------- */
@@ -70,6 +121,13 @@
   --vp-sidebar-bg-color: #fafafa;
 }
 
+/* ---------- Smooth Theme Transition ---------- */
+html.dark,
+html:not(.dark) {
+  transition: background-color 0.4s var(--blog-ease),
+              color 0.3s var(--blog-ease);
+}
+
 /* ---------- Base ---------- */
 html, body {
   line-height: 1.75;
@@ -99,7 +157,7 @@ html, body {
     position: fixed;
     left: 0;
     transform: translateX(-100%);
-    transition: transform var(--blog-duration) var(--blog-ease);
+    transition: transform 0.4s var(--blog-ease);
     z-index: 30;
     box-shadow: none;
   }
@@ -126,6 +184,20 @@ html, body {
   }
 }
 
+/* ---------- Sidebar Items Animation ---------- */
+.VPSidebar .VPSidebarItem {
+  animation: slideInLeft 0.4s var(--blog-ease) both;
+}
+
+.VPSidebar .VPSidebarItem:nth-child(1) { animation-delay: 0.02s; }
+.VPSidebar .VPSidebarItem:nth-child(2) { animation-delay: 0.04s; }
+.VPSidebar .VPSidebarItem:nth-child(3) { animation-delay: 0.06s; }
+.VPSidebar .VPSidebarItem:nth-child(4) { animation-delay: 0.08s; }
+.VPSidebar .VPSidebarItem:nth-child(5) { animation-delay: 0.10s; }
+.VPSidebar .VPSidebarItem:nth-child(6) { animation-delay: 0.12s; }
+.VPSidebar .VPSidebarItem:nth-child(7) { animation-delay: 0.14s; }
+.VPSidebar .VPSidebarItem:nth-child(8) { animation-delay: 0.16s; }
+
 /* ---------- Typography ---------- */
 .vp-doc h1 {
   font-size: 1.6em;
@@ -135,6 +207,7 @@ html, body {
   border: none;
   letter-spacing: -0.025em;
   line-height: 1.2;
+  animation: fadeInUp 0.6s var(--blog-ease) both;
 }
 
 .vp-doc h2 {
@@ -159,16 +232,21 @@ html, body {
   max-width: 65ch;
 }
 
+/* ---------- Animated Link Underline ---------- */
 .vp-doc a {
-  text-decoration: underline;
-  text-decoration-color: var(--vp-c-brand-soft);
-  text-underline-offset: 3px;
-  transition: text-decoration-color var(--blog-duration) var(--blog-ease),
+  text-decoration: none;
+  background-image: linear-gradient(var(--vp-c-brand-1), var(--vp-c-brand-1));
+  background-position: 0% 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: background-size 0.4s var(--blog-ease),
               color var(--blog-duration) var(--blog-ease);
+  padding-bottom: 1px;
 }
 
 .vp-doc a:hover {
-  text-decoration-color: var(--vp-c-brand-1);
+  background-size: 100% 1px;
+  color: var(--vp-c-brand-1);
 }
 
 /* ---------- Lists ---------- */
@@ -200,6 +278,13 @@ html, body {
   overflow-x: auto;
   border: 1px solid var(--vp-c-divider);
   line-height: 1.7;
+  transition: border-color var(--blog-duration) var(--blog-ease),
+              box-shadow var(--blog-duration) var(--blog-ease);
+}
+
+.vp-doc pre:hover {
+  border-color: var(--vp-c-brand-soft);
+  box-shadow: 0 0 0 1px var(--vp-c-brand-soft);
 }
 
 .vp-doc pre code {
@@ -216,6 +301,11 @@ html, body {
   background-color: var(--vp-c-bg-soft);
   border-radius: 0 6px 6px 0;
   color: var(--vp-c-text-2);
+  transition: border-left-width 0.2s var(--blog-ease);
+}
+
+.vp-doc blockquote:hover {
+  border-left-width: 4px;
 }
 
 .vp-doc blockquote p {
@@ -242,13 +332,26 @@ html, body {
 .vp-doc td {
   padding: 10px 14px;
   border: 1px solid var(--vp-c-divider);
+  transition: background-color 0.15s ease;
 }
 
-/* ---------- HR ---------- */
+.vp-doc tr:hover td {
+  background-color: var(--vp-c-bg-soft);
+}
+
+/* ---------- HR · Animated Gradient Line ---------- */
 .vp-doc hr {
-  margin: 40px 0;
+  margin: 48px 0;
   border: none;
-  border-top: 1px solid var(--vp-c-divider);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--vp-c-divider) 20%,
+    var(--vp-c-brand-soft) 50%,
+    var(--vp-c-divider) 80%,
+    transparent
+  );
 }
 
 /* ---------- Left Sidebar Styling ---------- */
@@ -260,9 +363,14 @@ html, body {
   padding: 8px 0;
 }
 
-/* ---------- Nav Link Active ---------- */
+/* ---------- Nav ---------- */
 .VPNavBarMenuLink.active {
   color: var(--vp-c-brand-1);
+}
+
+.VPNavBar {
+  transition: background-color 0.4s var(--blog-ease),
+              border-color 0.4s var(--blog-ease);
 }
 
 /* ---------- Home Page Hero ---------- */
@@ -273,26 +381,67 @@ html, body {
 .VPHero .name {
   font-size: 2em;
   letter-spacing: -0.03em;
+  animation: fadeInUp 0.7s var(--blog-ease) both;
+}
+
+.VPHero .clip {
+  background: linear-gradient(
+    135deg,
+    var(--vp-c-brand-1),
+    var(--vp-c-brand-3),
+    #60a5fa,
+    var(--vp-c-brand-1)
+  );
+  background-size: 300% 300%;
+  animation: gradientShift 6s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
 }
 
 .VPHero .text {
   font-size: 1.2em;
   color: var(--vp-c-text-2);
   letter-spacing: -0.01em;
+  animation: fadeInUp 0.7s 0.1s var(--blog-ease) both;
 }
 
 .VPHero .tagline {
   font-size: 1em;
   color: var(--vp-c-text-3);
+  animation: fadeInUp 0.7s 0.2s var(--blog-ease) both;
 }
 
-/* Hero action buttons — tactile press */
+.VPHero .actions {
+  animation: fadeInUp 0.7s 0.3s var(--blog-ease) both;
+}
+
 .VPHero .actions .VPButton {
   transition: all var(--blog-duration) var(--blog-ease);
+  position: relative;
+  overflow: hidden;
+}
+
+.VPHero .actions .VPButton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 70%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+  pointer-events: none;
 }
 
 .VPHero .actions .VPButton:active {
   transform: scale(0.97);
+}
+
+.VPHero .image-container {
+  animation: scaleIn 0.8s 0.2s var(--blog-ease) both;
 }
 
 /* ---------- Feature Cards ---------- */
@@ -301,22 +450,63 @@ html, body {
   margin: 0 auto;
 }
 
+.VPFeatures .items {
+  animation: fadeInUp 0.7s 0.35s var(--blog-ease) both;
+}
+
 .VPFeature {
   border: 1px solid var(--vp-c-divider);
   border-radius: 12px;
   transition: border-color var(--blog-duration) var(--blog-ease),
-              box-shadow var(--blog-duration) var(--blog-ease),
-              transform var(--blog-duration) var(--blog-ease);
+              box-shadow 0.4s var(--blog-ease),
+              transform 0.4s var(--blog-ease);
+  position: relative;
+  overflow: hidden;
+}
+
+.VPFeature::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--vp-c-brand-1), var(--vp-c-brand-3));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--blog-ease);
 }
 
 .VPFeature:hover {
   border-color: var(--vp-c-brand-1);
-  box-shadow: 0 4px 24px rgba(59, 130, 246, 0.06);
-  transform: translateY(-1px);
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.08);
+  transform: translateY(-2px);
+}
+
+.VPFeature:hover::before {
+  transform: scaleX(1);
 }
 
 .VPFeature:active {
   transform: translateY(0) scale(0.99);
+}
+
+/* ---------- Scroll Reveal ---------- */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s var(--blog-ease-out),
+              transform 0.6s var(--blog-ease-out);
+}
+
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Content Entrance ---------- */
+.vp-doc .container {
+  animation: fadeIn 0.5s var(--blog-ease) both;
 }
 
 /* ---------- Custom: Blog Card Grid ---------- */
@@ -333,14 +523,35 @@ html, body {
   border-radius: 12px;
   background: var(--vp-c-bg-soft);
   transition: border-color var(--blog-duration) var(--blog-ease),
-              transform var(--blog-duration) var(--blog-ease),
-              box-shadow var(--blog-duration) var(--blog-ease);
+              transform 0.4s var(--blog-ease),
+              box-shadow 0.4s var(--blog-ease);
+  position: relative;
+  overflow: hidden;
+}
+
+.blog-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(59, 130, 246, 0.04),
+    transparent 40%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s var(--blog-ease);
 }
 
 .blog-card:hover {
   border-color: var(--vp-c-brand-1);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.06);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(59, 130, 246, 0.08);
+}
+
+.blog-card:hover::after {
+  opacity: 1;
 }
 
 .blog-card:active {
@@ -369,12 +580,14 @@ html, body {
   background: var(--vp-c-brand-soft);
   color: var(--vp-c-brand-1);
   border: 1px solid transparent;
-  transition: border-color var(--blog-duration) var(--blog-ease);
+  transition: all var(--blog-duration) var(--blog-ease);
   font-weight: 500;
 }
 
 .tag-badge:hover {
   border-color: var(--vp-c-brand-1);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
 }
 
 /* ---------- Custom: Recent Posts ---------- */
@@ -389,7 +602,8 @@ html, body {
   padding: 12px 0;
   border-bottom: 1px solid var(--vp-c-divider);
   gap: 16px;
-  transition: padding-left var(--blog-duration) var(--blog-ease);
+  transition: padding-left var(--blog-duration) var(--blog-ease),
+              border-color var(--blog-duration) var(--blog-ease);
 }
 
 .recent-post-item:last-child {
@@ -397,7 +611,8 @@ html, body {
 }
 
 .recent-post-item:hover {
-  padding-left: 4px;
+  padding-left: 8px;
+  border-bottom-color: var(--vp-c-brand-soft);
 }
 
 .recent-post-item a {
@@ -412,6 +627,18 @@ html, body {
   font-variant-numeric: tabular-nums;
 }
 
+/* ---------- Reading Progress Bar ---------- */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--vp-c-brand-1), var(--vp-c-brand-3));
+  z-index: 100;
+  transition: width 0.1s linear;
+  pointer-events: none;
+}
+
 /* ---------- Scrollbar ---------- */
 ::-webkit-scrollbar {
   width: 6px;
@@ -424,6 +651,7 @@ html, body {
 ::-webkit-scrollbar-thumb {
   background: var(--vp-c-divider);
   border-radius: 3px;
+  transition: background 0.2s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -433,6 +661,15 @@ html, body {
 /* ---------- Selection ---------- */
 ::selection {
   background-color: rgba(59, 130, 246, 0.2);
+}
+
+/* ---------- Reduced Motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* ---------- Responsive ---------- */
