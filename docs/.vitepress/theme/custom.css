@@ -1,74 +1,81 @@
 /* ============================================
-   SJY Blog - Custom Theme
-   Clean dark blog aesthetic with D2Coding font
+   SJY Blog — Premium Dev Blog Theme
+   Pretendard + D2Coding · Zinc neutral · Clean blue accent
    ============================================ */
 
 @import url('https://cdn.jsdelivr.net/gh/wan2land/d2coding/d2coding-subset.css');
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
 
 /* ---------- CSS Variables ---------- */
 :root {
-  /* Brand colors */
-  --vp-c-brand-1: #7b9fe0;
-  --vp-c-brand-2: #6b8fd0;
-  --vp-c-brand-3: #5b7fc0;
-  --vp-c-brand-soft: rgba(123, 159, 224, 0.14);
+  /* Brand — electric blue, desaturated enough to stay elegant */
+  --vp-c-brand-1: #3b82f6;
+  --vp-c-brand-2: #2563eb;
+  --vp-c-brand-3: #1d4ed8;
+  --vp-c-brand-soft: rgba(59, 130, 246, 0.1);
 
   /* Layout */
   --blog-width: 780px;
   --blog-padding: 24px;
 
-  /* Typography */
-  --vp-font-family-base: 'D2Coding', 'D2 coding', 'Fira Code', monospace;
-  --vp-font-family-mono: 'D2Coding', 'D2 coding', 'Fira Code', monospace;
+  /* Typography — Pretendard for body, D2Coding for code */
+  --vp-font-family-base: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --vp-font-family-mono: 'D2Coding', 'D2 coding', 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Transition — premium easing */
+  --blog-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --blog-duration: 0.3s;
 }
 
-/* ---------- Dark Theme ---------- */
+/* ---------- Dark Theme · Zinc Neutral ---------- */
 .dark {
-  --vp-c-bg: #1a1a2e;
-  --vp-c-bg-soft: #16213e;
-  --vp-c-bg-mute: #1e1e30;
-  --vp-c-bg-alt: #0f0f1a;
+  --vp-c-bg: #18181b;
+  --vp-c-bg-soft: #27272a;
+  --vp-c-bg-mute: #1f1f23;
+  --vp-c-bg-alt: #09090b;
 
-  --vp-c-text-1: #eaeaea;
-  --vp-c-text-2: #b8b8b8;
-  --vp-c-text-3: #888888;
+  --vp-c-text-1: #f4f4f5;
+  --vp-c-text-2: #a1a1aa;
+  --vp-c-text-3: #71717a;
 
-  --vp-c-divider: #3a3a5a;
-  --vp-c-gutter: #2a2a4a;
+  --vp-c-divider: #3f3f46;
+  --vp-c-gutter: #27272a;
 
-  --vp-code-block-bg: #1e1e30;
-  --vp-code-line-highlight-color: rgba(123, 159, 224, 0.08);
+  --vp-code-block-bg: #1f1f23;
+  --vp-code-line-highlight-color: rgba(59, 130, 246, 0.06);
 
-  --vp-nav-bg-color: #0f0f1a;
-  --vp-nav-screen-bg-color: #0f0f1a;
-  --vp-local-nav-bg-color: #0f0f1a;
-  --vp-sidebar-bg-color: #131328;
+  --vp-nav-bg-color: #09090b;
+  --vp-nav-screen-bg-color: #09090b;
+  --vp-local-nav-bg-color: #09090b;
+  --vp-sidebar-bg-color: #111113;
 }
 
-/* ---------- Light Theme ---------- */
+/* ---------- Light Theme · Slate Clean ---------- */
 :root:not(.dark) {
-  --vp-c-bg: #fafbfc;
-  --vp-c-bg-soft: #f0f2f5;
-  --vp-c-bg-mute: #e8eaed;
+  --vp-c-bg: #fafafa;
+  --vp-c-bg-soft: #f4f4f5;
+  --vp-c-bg-mute: #e4e4e7;
   --vp-c-bg-alt: #ffffff;
 
-  --vp-c-text-1: #1a1a2e;
-  --vp-c-text-2: #4a4a6a;
-  --vp-c-text-3: #7a7a9a;
+  --vp-c-text-1: #18181b;
+  --vp-c-text-2: #52525b;
+  --vp-c-text-3: #a1a1aa;
 
-  --vp-c-divider: #d0d0e0;
-  --vp-c-gutter: #e0e0f0;
+  --vp-c-divider: #e4e4e7;
+  --vp-c-gutter: #f4f4f5;
 
-  --vp-code-block-bg: #f5f5fa;
+  --vp-code-block-bg: #fafafa;
 
   --vp-nav-bg-color: #ffffff;
-  --vp-sidebar-bg-color: #f8f9fb;
+  --vp-sidebar-bg-color: #fafafa;
 }
 
 /* ---------- Base ---------- */
 html, body {
-  line-height: 1.8;
+  line-height: 1.75;
   font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* ---------- Content Width Control ---------- */
@@ -92,7 +99,7 @@ html, body {
     position: fixed;
     left: 0;
     transform: translateX(-100%);
-    transition: transform 0.3s ease;
+    transition: transform var(--blog-duration) var(--blog-ease);
     z-index: 30;
     box-shadow: none;
   }
@@ -100,7 +107,7 @@ html, body {
   .VPSidebar.open,
   .VPSidebar:target {
     transform: translateX(0);
-    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+    box-shadow: 4px 0 32px rgba(0, 0, 0, 0.12);
   }
 
   .VPContent.has-sidebar {
@@ -126,32 +133,38 @@ html, body {
   margin: 0 0 16px 0;
   padding: 0;
   border: none;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
 }
 
 .vp-doc h2 {
   font-size: 1.2em;
   font-weight: 700;
-  margin: 40px 0 16px 0;
+  margin: 48px 0 16px 0;
   padding-bottom: 8px;
   border-bottom: 1px solid var(--vp-c-divider);
+  letter-spacing: -0.02em;
+  line-height: 1.3;
 }
 
 .vp-doc h3 {
   font-size: 1.05em;
-  font-weight: 700;
-  margin: 28px 0 12px 0;
+  font-weight: 600;
+  margin: 32px 0 12px 0;
+  letter-spacing: -0.015em;
 }
 
 .vp-doc p {
-  margin: 12px 0;
+  margin: 14px 0;
+  max-width: 65ch;
 }
 
 .vp-doc a {
   text-decoration: underline;
   text-decoration-color: var(--vp-c-brand-soft);
   text-underline-offset: 3px;
-  transition: text-decoration-color 0.2s;
+  transition: text-decoration-color var(--blog-duration) var(--blog-ease),
+              color var(--blog-duration) var(--blog-ease);
 }
 
 .vp-doc a:hover {
@@ -162,65 +175,78 @@ html, body {
 .vp-doc ul,
 .vp-doc ol {
   padding-left: 1.5em;
-  margin: 12px 0;
+  margin: 14px 0;
 }
 
 .vp-doc li {
-  margin: 8px 0;
+  margin: 6px 0;
+}
+
+.vp-doc li + li {
+  margin-top: 8px;
 }
 
 /* ---------- Code ---------- */
 .vp-doc code {
-  font-size: 0.9em;
+  font-size: 0.88em;
   padding: 2px 6px;
   border-radius: 4px;
+  font-weight: 500;
 }
 
 .vp-doc pre {
-  padding: 16px;
+  padding: 20px;
   border-radius: 8px;
   overflow-x: auto;
   border: 1px solid var(--vp-c-divider);
+  line-height: 1.7;
 }
 
 .vp-doc pre code {
   background: none;
   padding: 0;
+  font-weight: 400;
 }
 
 /* ---------- Blockquote ---------- */
 .vp-doc blockquote {
-  margin: 20px 0;
-  padding: 12px 20px;
-  border-left: 3px solid var(--vp-c-brand-1);
+  margin: 24px 0;
+  padding: 14px 20px;
+  border-left: 2px solid var(--vp-c-brand-1);
   background-color: var(--vp-c-bg-soft);
-  border-radius: 0 8px 8px 0;
+  border-radius: 0 6px 6px 0;
+  color: var(--vp-c-text-2);
+}
+
+.vp-doc blockquote p {
+  margin: 4px 0;
 }
 
 /* ---------- Table ---------- */
 .vp-doc table {
   width: 100%;
-  margin: 20px 0;
+  margin: 24px 0;
   border-collapse: collapse;
   font-size: 14px;
 }
 
 .vp-doc th {
   background-color: var(--vp-c-bg-soft);
-  padding: 10px 12px;
+  padding: 10px 14px;
   border: 1px solid var(--vp-c-divider);
   text-align: left;
   font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .vp-doc td {
-  padding: 10px 12px;
+  padding: 10px 14px;
   border: 1px solid var(--vp-c-divider);
 }
 
 /* ---------- HR ---------- */
 .vp-doc hr {
-  margin: 32px 0;
+  margin: 40px 0;
   border: none;
   border-top: 1px solid var(--vp-c-divider);
 }
@@ -246,16 +272,27 @@ html, body {
 
 .VPHero .name {
   font-size: 2em;
+  letter-spacing: -0.03em;
 }
 
 .VPHero .text {
   font-size: 1.2em;
   color: var(--vp-c-text-2);
+  letter-spacing: -0.01em;
 }
 
 .VPHero .tagline {
   font-size: 1em;
   color: var(--vp-c-text-3);
+}
+
+/* Hero action buttons — tactile press */
+.VPHero .actions .VPButton {
+  transition: all var(--blog-duration) var(--blog-ease);
+}
+
+.VPHero .actions .VPButton:active {
+  transform: scale(0.97);
 }
 
 /* ---------- Feature Cards ---------- */
@@ -267,12 +304,19 @@ html, body {
 .VPFeature {
   border: 1px solid var(--vp-c-divider);
   border-radius: 12px;
-  transition: border-color 0.25s, box-shadow 0.25s;
+  transition: border-color var(--blog-duration) var(--blog-ease),
+              box-shadow var(--blog-duration) var(--blog-ease),
+              transform var(--blog-duration) var(--blog-ease);
 }
 
 .VPFeature:hover {
   border-color: var(--vp-c-brand-1);
-  box-shadow: 0 2px 12px rgba(123, 159, 224, 0.08);
+  box-shadow: 0 4px 24px rgba(59, 130, 246, 0.06);
+  transform: translateY(-1px);
+}
+
+.VPFeature:active {
+  transform: translateY(0) scale(0.99);
 }
 
 /* ---------- Custom: Blog Card Grid ---------- */
@@ -288,18 +332,25 @@ html, body {
   border: 1px solid var(--vp-c-divider);
   border-radius: 12px;
   background: var(--vp-c-bg-soft);
-  transition: all 0.25s;
+  transition: border-color var(--blog-duration) var(--blog-ease),
+              transform var(--blog-duration) var(--blog-ease),
+              box-shadow var(--blog-duration) var(--blog-ease);
 }
 
 .blog-card:hover {
   border-color: var(--vp-c-brand-1);
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.06);
+}
+
+.blog-card:active {
+  transform: translateY(0) scale(0.98);
 }
 
 .blog-card h3 {
   margin: 0 0 8px 0;
   font-size: 1em;
+  letter-spacing: -0.01em;
 }
 
 .blog-card p {
@@ -318,7 +369,8 @@ html, body {
   background: var(--vp-c-brand-soft);
   color: var(--vp-c-brand-1);
   border: 1px solid transparent;
-  transition: all 0.2s;
+  transition: border-color var(--blog-duration) var(--blog-ease);
+  font-weight: 500;
 }
 
 .tag-badge:hover {
@@ -337,10 +389,15 @@ html, body {
   padding: 12px 0;
   border-bottom: 1px solid var(--vp-c-divider);
   gap: 16px;
+  transition: padding-left var(--blog-duration) var(--blog-ease);
 }
 
 .recent-post-item:last-child {
   border-bottom: none;
+}
+
+.recent-post-item:hover {
+  padding-left: 4px;
 }
 
 .recent-post-item a {
@@ -352,20 +409,21 @@ html, body {
   font-size: 0.85em;
   color: var(--vp-c-text-3);
   white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 
 /* ---------- Scrollbar ---------- */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--vp-c-bg);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--vp-c-divider);
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -374,7 +432,7 @@ html, body {
 
 /* ---------- Selection ---------- */
 ::selection {
-  background-color: rgba(123, 159, 224, 0.3);
+  background-color: rgba(59, 130, 246, 0.2);
 }
 
 /* ---------- Responsive ---------- */
