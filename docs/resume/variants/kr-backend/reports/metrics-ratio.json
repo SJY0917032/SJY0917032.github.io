@@ -1,0 +1,30 @@
+{
+  "generatedAt": "2026-02-22T13:59:15.807Z",
+  "threshold": 0.35,
+  "variants": [
+    {
+      "id": "v1",
+      "name": "JD 매칭형",
+      "bullets": 36,
+      "metricBullets": 24,
+      "ratio": 0.6667,
+      "pass": true
+    },
+    {
+      "id": "v2",
+      "name": "문제해결형",
+      "bullets": 33,
+      "metricBullets": 19,
+      "ratio": 0.5758,
+      "pass": true
+    },
+    {
+      "id": "v3",
+      "name": "아키텍처형",
+      "bullets": 42,
+      "metricBullets": 26,
+      "ratio": 0.619,
+      "pass": true
+    }
+  ]
+}
