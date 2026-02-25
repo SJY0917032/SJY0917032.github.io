@@ -53,15 +53,23 @@ export default withMermaid(defineConfig({
           collapsed: false,
           items: [
             { text: '공급사 6곳의 API를 하나로', link: '/posts/api-gateway-layer' },
-            { text: '예약 성공, 결제 실패 — 분산 트랜잭션 없이 일관성 확보하기', link: '/posts/distributed-transaction' },
-            { text: '인천공항이 네 가지 이름으로 저장된 이유 — 공급사 데이터 정규화', link: '/posts/data-normalization' },
+            { text: '예약 성공, 결제 실패 — 분산 트랜잭션 없이 일관성 확보', link: '/posts/distributed-transaction' },
+            { text: '쿠폰이 예약 코드 안에 있으면 안 되는 이유', link: '/posts/coupon-domain' },
+            { text: '어드민 RBAC 설계', link: '/posts/admin-rbac' },
+          ]
+        },
+        {
+          text: '데이터 & 검색',
+          collapsed: false,
+          items: [
+            { text: '지점 마스터 시스템', link: '/posts/location-master' },
           ]
         },
         {
           text: '인프라 & 비용',
           collapsed: false,
           items: [
-            { text: 'DocumentDB 스토리지 비용 91% 절감', link: '/posts/infra-cost-reduction' },
+            { text: 'DocumentDB 비용 91% 절감', link: '/posts/infra-cost-reduction' },
           ]
         },
         {
@@ -71,37 +79,21 @@ export default withMermaid(defineConfig({
             { text: '인수증 발송 파이프라인 재설계', link: '/posts/invoice-pipeline' },
             { text: '레거시 TMS 연동 개편', link: '/posts/legacy-tms-refactor' },
             { text: '수기 결제 자동화', link: '/posts/payment-automation' },
-            { text: 'Google Sheets에서 NestJS 어드민으로', link: '/posts/admin-rbac' },
+            { text: 'PG사 추상화 — 이니시스 이틀 만에 연동', link: '/posts/pg-abstraction' },
           ]
         },
         {
-          text: '분산 시스템',
+          text: 'API 연동',
           collapsed: false,
           items: [
-            { text: 'Redis 분산 크론 스케줄러', link: '/posts/distributed-scheduler' },
-            { text: '실시간 채팅·현재상태 시스템', link: '/posts/realtime-chat' },
-          ]
-        },
-        {
-          text: '비동기 처리',
-          collapsed: false,
-          items: [
-            { text: '주문과 결제를 비동기로 분리하면', link: '/posts/order-payment' },
-            { text: '알림 채널 3개를 독립 큐로', link: '/posts/notification-dispatcher' },
-          ]
-        },
-        {
-          text: '검색 & 데이터',
-          collapsed: false,
-          items: [
-            { text: 'SQLite FTS5 검색 파이프라인', link: '/posts/search-pipeline' },
+            { text: '예약이 두 건 잡혔습니다 — 멱등키', link: '/posts/idempotency-key' },
           ]
         },
         {
           text: '오픈소스 기여',
           collapsed: false,
           items: [
-            { text: 'AI 에이전트 오케스트레이터에 기여한 이야기', link: '/posts/oss-claw-empire' },
+            { text: 'Claw-Empire 기여 후기', link: '/posts/oss-claw-empire' },
           ]
         },
       ],

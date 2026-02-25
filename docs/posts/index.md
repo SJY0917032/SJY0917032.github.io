@@ -9,32 +9,27 @@ description: 실무에서 마주친 문제들과 직접 설계한 시스템 아�
 
 - [공급사 6곳의 API를 하나로 — 통합 어댑터 레이어 설계기](./api-gateway-layer)
 - [예약 성공, 결제 실패 — 분산 트랜잭션 없이 일관성 확보하기](./distributed-transaction)
-- [인천공항이 네 가지 이름으로 저장된 이유 — 공급사 데이터 정규화](./data-normalization)
+- [쿠폰이 예약 코드 안에 있으면 안 되는 이유](./coupon-domain)
+- [Google Sheets에서 NestJS 어드민으로 — 팀 계층 RBAC 설계](./admin-rbac)
+
+## 데이터 & 검색
+
+- [지점 마스터 시스템 — 6개 공급사 데이터 파편화 해결기](./location-master)
 
 ## 인프라 & 비용
 
-- [DocumentDB 스토리지 비용 91% 절감 — TTL 인덱스와 S3 Glacier 아카이빙](./infra-cost-reduction)
+- [DocumentDB 스토리지 비용 91% 절감 — TTL 인덱스와 S3 백업](./infra-cost-reduction)
 
 ## 자동화 & 운영
 
 - [인수증 발송 파이프라인 재설계 — GAS에서 NestJS + SQS + Lambda로](./invoice-pipeline)
 - [레거시 TMS 연동 개편 — 인터페이스 추상화와 재시도 설계](./legacy-tms-refactor)
 - [수기 결제 자동화 — 토스페이먼츠 정기결제와 PG 추상화 설계](./payment-automation)
-- [Google Sheets에서 NestJS 어드민으로 — 팀 계층 RBAC 설계](./admin-rbac)
+- [PG사 추상화 — 이니시스를 이틀 만에 붙인 증명](./pg-abstraction)
 
-## 분산 시스템
+## API 연동
 
-- [Redis 리더 선출로 분산 크론 스케줄러 만들기](./distributed-scheduler)
-- [수평 확장 가능한 실시간 채팅·현재상태 시스템 설계](./realtime-chat)
-
-## 비동기 처리
-
-- [주문과 결제를 비동기로 분리하면 생기는 일](./order-payment)
-- [알림 채널 3개를 독립 큐로 분리한 이유](./notification-dispatcher)
-
-## 검색 & 데이터
-
-- [SQLite FTS5로 검색 파이프라인 만들기](./search-pipeline)
+- [예약이 두 건 잡혔습니다 — 멱등키로 중복 예약 방지](./idempotency-key)
 
 ## 오픈소스 기여
 
